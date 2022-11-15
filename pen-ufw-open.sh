@@ -27,14 +27,13 @@ fi
 if [ "$add_mode" = "status" ]
 then
     ufw status
-    exit
+    exit 0
 fi
 
 port_list=(21 80 443 139 445 9001 9002 9003 9004 9005 9998 9999)
 
 for port in ${port_list[*]}
 do
-    #echo ${port}
     if [ "$add_mode" = "open" ]
     then
         paste <(echo -ne "${port}\t\n${port}\t") <(ufw allow ${port});
@@ -42,4 +41,8 @@ do
     then
         paste <(echo -ne "${port}\t\n${port}\t") <(ufw delete allow ${port});
     fi
+
 done
+
+# reload ufw rules
+ufw reload
