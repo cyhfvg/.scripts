@@ -20,11 +20,11 @@ Append this to /etc/crontab for execute every 5 minutes.
 
 ===
 
-band_ip_file is the file where these have been baned ipv6 address save to.
-band_ip_file should be exist.
-band_ip_file can be empty.
+baned_ip_file is the file where these have been baned ipv6 address save to.
+baned_ip_file should be exist.
+baned_ip_file can be empty.
 
-band_ip_file example:
+baned_ip_file example:
 
 ::ffff:125.46.32.121
 ::ffff:111.63.22.72
@@ -38,7 +38,7 @@ ssserver.log error log example:
 !
 
 # change me {{{1
-band_ip_file='/root/.scripts/baned-ip.lst'
+baned_ip_file='/root/.scripts/baned-ip.lst'
 log_file='/usr/local/shadowsocksr/shadowsocks/ssserver.log'
 #
 
@@ -57,7 +57,7 @@ then
     exit 0
 fi
 
-if [ ! -e ${band_ip_file} ]
+if [ ! -e ${baned_ip_file} ]
 then
     exit 1
 fi
@@ -74,13 +74,13 @@ check_pid(){
 
 for ip in $($CAT $log_file  | $GREP -aiP "\d{2}:\d{2}:\d{2} ERROR" | $GREP -aioP "(?<=from ).+(?=:\d+)" | $SORT | $UNIQ)
 do
-    if $GREP -q "${ip}" $band_ip_file
+    if $GREP -q "${ip}" $baned_ip_file
     then
         # echo "${ip}"
     touch $0
     else
         $UFW deny from "${ip}" &>/dev/null
-        echo "${ip}" >> $band_ip_file
+        echo "${ip}" >> $baned_ip_file
         do_ban=1
     fi
 done
