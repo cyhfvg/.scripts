@@ -20,6 +20,10 @@ Append this to /etc/crontab for execute every 5 minutes.
 
 ===
 
+band_ip_file is the file where these have been baned ipv6 address save to.
+band_ip_file should be exist.
+band_ip_file can be empty.
+
 band_ip_file example:
 
 ::ffff:125.46.32.121
