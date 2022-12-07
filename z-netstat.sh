@@ -60,4 +60,4 @@ all_ports=${all_ports//./\\.}
 
 [ $debug_mode -eq 1 ] && echo "${all_ports}"
 
-${netstat} | grep --color -iP "${all_ports}"
+${netstat} 2>/dev/null | grep --color -iP "${all_ports}"
