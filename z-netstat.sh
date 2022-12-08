@@ -13,7 +13,7 @@ cd "${0%/*}" || exit
 
 debug_mode=0
 all_ports=""
-netstat="netstat -panto"
+netstat="netstat 2>/dev/null -panto"
 while [ -n "$1" ]; do
     case "$1" in
         -h | --help)
@@ -47,7 +47,7 @@ while [ -n "$1" ]; do
     shift
 done
 
-[ -z "${all_ports}" ] && (${netstat} ; exit)
+[ -z "${all_ports}" ] && (eval ${netstat} ; exit)
 
 # delete head/tail [,.] chars
 all_ports=$(echo "${all_ports}" | sed -e 's/^[,.]\+//; s/[,.]\+$//')
@@ -60,4 +60,4 @@ all_ports=${all_ports//./\\.}
 
 [ $debug_mode -eq 1 ] && echo "${all_ports}"
 
-${netstat} 2>/dev/null | grep --color -iP "${all_ports}"
+eval "${netstat}" | grep --color -iP "${all_ports}"
