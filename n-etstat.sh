@@ -47,7 +47,10 @@ while [ -n "$1" ]; do
     shift
 done
 
-[ -z "${all_ports}" ] && (eval ${netstat} ; exit)
+if [ -z "${all_ports}" ];then
+    eval ${netstat} ;
+    exit
+fi
 
 # delete head/tail [,.] chars
 all_ports=$(echo "${all_ports}" | sed -e 's/^[,.]\+//; s/[,.]\+$//')
