@@ -25,6 +25,7 @@ else
 fi
 
 content=$(cat)
+content=$(echo "${content}" | sed -e 's#\\#\\\\#g' -e "s#'#\\\\'#g" -e 's#"#\\"#g')
 
 if which python3 &>/dev/null; then
     if [ $mode = "DECODE" ]; then
