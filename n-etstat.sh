@@ -13,7 +13,7 @@ cd "${0%/*}" || exit
 
 debug_mode=0
 all_ports=""
-netstat="netstat 2>/dev/null -panto"
+netstat="netstat 2>/dev/null -pantuo"
 while [ -n "$1" ]; do
     case "$1" in
         -h | --help)
@@ -38,7 +38,7 @@ while [ -n "$1" ]; do
             ;;
         *)
             if echo "$1" | grep -sq -iP "[^0-9,:.]" ; then
-                echo "param should be numberic port like 4444 or 80,443 ...";
+                echo "param should be numberic port like 4444 or 80,443 :8080 127.0.0.1 ...";
                 exit 1
             fi
             all_ports="${all_ports},$1"
@@ -53,10 +53,10 @@ if [ -z "${all_ports}" ];then
 fi
 
 # delete head/tail [,.] chars
-all_ports=$(echo "${all_ports}" | sed -e 's/^[,.]\+//; s/[,.]\+$//')
+all_ports=$(echo "${all_ports}" | sed -e 's/^[,]\+//; s/[,]\+$//')
 # add head '('    and tail ')'
 all_ports=$(echo "${all_ports}" | sed -e 's#^#(#' -e 's#$#)#')
-# replace multi [.,] to single char
+# replace multi [.,] to single char, split with regexp |
 all_ports=$(echo "${all_ports}" | sed -e 's#,\+#)|(#g' -e 's#\.\+#.#g')
 # remove '.' magci
 all_ports=${all_ports//./\\.}
