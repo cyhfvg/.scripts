@@ -30,18 +30,17 @@ then
     exit 0
 fi
 
-port_list=(21 80 443 139 445 9001 9002 9003 9004 9005 9998 9999)
+port_list=(21 80 443 139 445 9001 9002 9003 9004 9005 9006 9007 9008 9009 9010 9998 9999)
 
 for port in ${port_list[*]}
 do
     if [ "$add_mode" = "open" ]
     then
-        paste <(echo -ne "${port}\t\n${port}\t") <(ufw allow ${port});
+        paste <(echo -ne "${port}\t") <(ufw allow from 10.0.0.0/8 to any port ${port});
     elif [ "$add_mode" = "close" ]
     then
-        paste <(echo -ne "${port}\t\n${port}\t") <(ufw delete allow ${port});
+        paste <(echo -ne "${port}\t") <(ufw delete allow from 10.0.0.0/8 to any port ${port});
     fi
-
 done
 
 # reload ufw rules
