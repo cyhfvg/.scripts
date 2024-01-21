@@ -7,6 +7,9 @@ dependence: https://github.com/233boy/Xray
 install xray node:  bash <(wget -qO- -o- https://github.com/233boy/Xray/raw/main/install.sh)
 
 xray node convert to clash node
+
+ref: useful node convert website: https://v2rayse.com/node-convert/
+ref: useful chatGPT clash rule: https://blog.wolfbolin.com/archives/813
 !
 
 
