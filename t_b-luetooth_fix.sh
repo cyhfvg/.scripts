@@ -4,7 +4,7 @@
 auth: @cyhfvg https://github.com/cyhfvg
 date: 2025/04/05
 
-easy netstat with grep.
+linux bluetooth problem fix.
 !
 
 
